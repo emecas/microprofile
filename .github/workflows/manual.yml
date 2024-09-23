@@ -1,0 +1,22 @@
+on:
+  issue:
+    types: [opened]
+
+jobs:
+  run_command_and_label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Command
+        run: |
+          echo "Checking for keyword..."
+          output=$(grep -i "keyword" README.md)
+      - name: Label Issue
+        uses: actions/label-issue@v2
+        with:
+          issue_number: ${{ github.event.issue.number }}
+          labels: ${{ github.event.issue.labels }}
+          add_labels: |
+            {{# if output }}
+            keyword-found
+            {{/if}}
