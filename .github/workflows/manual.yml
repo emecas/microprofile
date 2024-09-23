@@ -1,6 +1,6 @@
 on:
   issues:
-    types: [opened]
+    types: [opened, closed]
 
 jobs:
   run_command_and_label:
